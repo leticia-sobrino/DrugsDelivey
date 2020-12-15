@@ -5,9 +5,6 @@ import numpy as np
 
 
 
-
-
-
 # FUNCION BASE DE ESTE ARCHIVO
 def haversine(coord1, coord2):
     
@@ -30,7 +27,7 @@ def haversine(coord1, coord2):
 
 
 # FUNCION QUE DEVUELVE EL CENTRO MEDICO MÁS CERCANO A TU CASA
-def distancia_entre_hospital_casa(lat, lon):
+def distancia_entre_hospital_casa(calle):
     '''
     Esta funcion lo que coge es la latitud y longitud de la ubicacion de tu casa y te evuelve el nombre del centro medico 
     mas cercano a tu casa
@@ -42,7 +39,7 @@ def distancia_entre_hospital_casa(lat, lon):
     
     centros_medicos_clean['DISTANCIA'] = 0 
     
-    centros_medicos_clean['DISTANCIA'] = centros_medicos_clean.apply(lambda row: haversine((lat, lon), (row['LATITUD'], row['LONGITUD'])), axis=1)
+    centros_medicos_clean['DISTANCIA'] = centros_medicos_clean.apply(lambda row: haversine(calle, (row['LATITUD'], row['LONGITUD'])), axis=1)
     
     return (centros_medicos_clean.loc[centros_medicos_clean.DISTANCIA.argmin(), "NOMBRE"], math.trunc(centros_medicos_clean.loc[centros_medicos_clean.DISTANCIA.argmin(), "DISTANCIA"]))
     
@@ -50,13 +47,13 @@ def distancia_entre_hospital_casa(lat, lon):
 
 
 # FUNCION QUE DEVUELVE LA FARMACIA MAS CERCANA A TU CASA. LA DISTANCIA QUE VA A RECORRER EL REPARTIDOS POR TI
-def distancia_entre_farmacia_casa(lat, lon):
+def distancia_entre_farmacia_casa(calle):
     for index, row in farmacias_clean.iterrows(): 
         row['latitud']
         row['longitud']
     
     farmacias_clean['DISTANCIA'] = 0 
     
-    farmacias_clean['DISTANCIA'] = farmacias_clean.apply(lambda row: haversine(home, (row['latitud'], row['longitud'])), axis=1)
+    farmacias_clean['DISTANCIA'] = farmacias_clean.apply(lambda row: haversine(calle, (row['latitud'], row['longitud'])), axis=1)
     
     return (farmacias_clean.loc[farmacias_clean.DISTANCIA.argmin(), "titular_nombre"], farmacias_clean.loc[farmacias_clean.DISTANCIA.argmin(), "DISTANCIA"])
