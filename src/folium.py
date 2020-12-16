@@ -147,3 +147,33 @@ def mapa_calor(mapa):
     folium.LayerControl(collapsed = False).add_to(map_capas) 
 
     return map_capas
+
+
+ ## MAPA DE CALOR DE LAS FARMACIAS
+map_municipio = Map(location=[max_lat, max_lon],zoom_start=10)
+
+def dataframes_ubi(elemento):
+    return farmacias_clean[farmacias_clean['municipio_nombre'] == (f"{elemento}")]
+
+def dataframes_u(elemento):
+    return farmacias_clean[farmacias_clean['municipio_nombre'] != (f"{elemento}")]
+
+ubicacion = list(farmacias_clean.municipio_nombre.unique())
+madrid = dataframes_ubi(ubicacion[0])
+otros = dataframes_u(ubicacion[0])
+
+def map_calor_farmacias(mapa):
+    map_municipio = Map(location=[max_lat, max_lon],zoom_start=10)
+
+    madrid_group = folium.FeatureGroup(name = "Madrid")
+    HeatMap(data = madrid[["latitud","longitud"]], radius = 10).add_to(madrid_group)
+    madrid_group.add_to(map_municipio)
+
+    otros_group = folium.FeatureGroup(name = "Afueras de Madrid")
+    HeatMap(data = otros[["latitud","longitud"]], radius = 10).add_to(otros_group)
+    otros_group.add_to(map_municipio)
+
+    folium.LayerControl(collapsed = False).add_to(map_municipio)
+
+
+    return map_municipio

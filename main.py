@@ -99,7 +99,18 @@ folium_static(fm.mapa_calor(map_capas))
 
 # Mapa de Farmacias
 st.header("Mapa General de Farmacias")
-st.subheader("Mapa Iconos Personalizados")
+st.subheader("Mapa de Calor")
+st.write('''
+En este tercer mapa se muestra la localización de todas las farmacias proporcionadas en su dataset y así, podremos observar esos datos de manera visual
+plasmados en un mapa. Esta información solamente se ha podido visualizar en un mapa de calor ya que utilizando un mapa con markers no nos devolvia una 
+información útil debido a la cantidad de datos. Por ello, se muestran los datos de todas las farmacias de Madrid en este mapa de calor interactivo, 
+con el cual puede decidir ver marcando en el panel de control las farmacias del Centro de Madrid y de la afueras. A demás se proprociona la herramienta de zoom. 
+
+'''
+)
+map_municipio = folium.Map(location=[max_lat, max_lon],zoom_start=10)
+folium_static(fm.map_calor_farmacias(map_municipio))
+
 
 
 
