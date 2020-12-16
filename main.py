@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 from PIL import Image
 from time import sleep
-
+from streamlit_folium import folium_static
+import folium
 
 import src.geocode as geo
 import src.distancia as dis
@@ -65,7 +66,40 @@ Y a continuación, le presentaré estos conjuntos de datos de una manera visual 
 '''
 )
 
-# MAPAS GENERALES
+#### MAPAS GENERALES ####
+# Variables necesarias para el mapa de centros medicos
+max_lat = centros_medicos_clean['LATITUD'].max()
+max_lon = centros_medicos_clean['LONGITUD'].max()
+
+# Mapa de iconos personalizados por tipo de centro médico
+st.header("Mapas Generales Centros Médicos")
+st.subheader("Mapa Iconos Personalizados")
+st.write('''
+En este primer mapa le mostramos la localización de todos los Centros Sanitarios de Madrid que nos ha proporcionado el dataset.
+Los Centros de Madrid se ven agrupados en 8 tipos, en el cual cada uno se ve representado por un icono personalizado.  
+Si pasa el ratón por encima del mapa y de los iconos podrá observar que tipo de icono representa a cada tipo de Centro médico, además el mapa es
+interactivo y le permite hacer zoom para alejarse o para acercarse.
+'''
+)
+map_personalizado = folium.Map(location=[max_lat, max_lon],zoom_start=10, control_scale = True)
+
+folium_static(fm.mapa_centros_medicos(map_personalizado))
+
+# Mapa de Calor de los centros médicos
+st.subheader("Mapa de calor - ControlLayer")
+st.write(
+    '''
+    Este segundo mapa muestra también los Centros Médicos Sanitarios de todo Madrid pero de una manera visual diferente. Este mapa de calor 
+    contiene un panel de control interactivo también llamado como ControlLayer en el que usted puede elegir los tipos de centros que quiere ver ubicados en 
+    el mapa. Puede elegir desde ninguno hasta todos los tipos de centros, es de libre elección. A demás también posee la herramienta de zoom por si necesita jugar con ella.
+    '''
+)
+map_capas = folium.Map(location=[max_lat, max_lon],zoom_start=10)
+folium_static(fm.mapa_calor(map_capas))
+
+# Mapa de Farmacias
+st.header("Mapa General de Farmacias")
+st.subheader("Mapa Iconos Personalizados")
 
 
 
