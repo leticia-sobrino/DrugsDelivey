@@ -3,6 +3,13 @@ import math
 import numpy as np
 
 
+import src.geocode as geo
+
+# IMPORTANDO NUESTROS DATOS LIMPIOS
+centros_medicos_clean = pd.read_csv("data/centros_medicos_clean.csv")
+farmacias_clean = pd.read_csv("data/farmacias_clean.csv")
+
+
 
 
 # FUNCION BASE DE ESTE ARCHIVO
@@ -27,7 +34,9 @@ def haversine(coord1, coord2):
 
 
 # FUNCION QUE DEVUELVE EL CENTRO MEDICO MÁS CERCANO A TU CASA
-def distancia_entre_hospital_casa(calle):
+
+
+def distancia_entre_hospital_casa(casa):
     '''
     Esta funcion lo que coge es la latitud y longitud de la ubicacion de tu casa y te evuelve el nombre del centro medico 
     mas cercano a tu casa
@@ -39,7 +48,7 @@ def distancia_entre_hospital_casa(calle):
     
     centros_medicos_clean['DISTANCIA'] = 0 
     
-    centros_medicos_clean['DISTANCIA'] = centros_medicos_clean.apply(lambda row: haversine(calle, (row['LATITUD'], row['LONGITUD'])), axis=1)
+    centros_medicos_clean['DISTANCIA'] = centros_medicos_clean.apply(lambda row: haversine(casa, (row['LATITUD'], row['LONGITUD'])), axis=1)
     
     return (centros_medicos_clean.loc[centros_medicos_clean.DISTANCIA.argmin(), "NOMBRE"], math.trunc(centros_medicos_clean.loc[centros_medicos_clean.DISTANCIA.argmin(), "DISTANCIA"]))
     
