@@ -56,13 +56,13 @@ def distancia_entre_hospital_casa(casa):
 
 
 # FUNCION QUE DEVUELVE LA FARMACIA MAS CERCANA A TU CASA. LA DISTANCIA QUE VA A RECORRER EL REPARTIDOS POR TI
-def distancia_entre_farmacia_casa(calle):
+def distancia_entre_farmacia_casa(casa):
     for index, row in farmacias_clean.iterrows(): 
         row['latitud']
         row['longitud']
     
     farmacias_clean['DISTANCIA'] = 0 
     
-    farmacias_clean['DISTANCIA'] = farmacias_clean.apply(lambda row: haversine(calle, (row['latitud'], row['longitud'])), axis=1)
+    farmacias_clean['DISTANCIA'] = farmacias_clean.apply(lambda row: haversine(casa, (row['latitud'], row['longitud'])), axis=1)
     
     return (farmacias_clean.loc[farmacias_clean.DISTANCIA.argmin(), "titular_nombre"], farmacias_clean.loc[farmacias_clean.DISTANCIA.argmin(), "DISTANCIA"])
