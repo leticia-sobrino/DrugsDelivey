@@ -52,6 +52,7 @@ def distancia_entre_hospital_casa(casa):
     
     return (centros_medicos_clean.loc[centros_medicos_clean.DISTANCIA.argmin(), "NOMBRE"], math.trunc(centros_medicos_clean.loc[centros_medicos_clean.DISTANCIA.argmin(), "DISTANCIA"]))
     
+    
 
 
 
@@ -65,9 +66,12 @@ def distancia_entre_farmacia_casa(casa):
     
     farmacias_clean['DISTANCIA'] = farmacias_clean.apply(lambda row: haversine(casa, (row['latitud'], row['longitud'])), axis=1)
     
-    return (farmacias_clean.loc[farmacias_clean.DISTANCIA.argmin(), "titular_nombre"], farmacias_clean.loc[farmacias_clean.DISTANCIA.argmin(), "DISTANCIA"])
+    return (farmacias_clean.loc[farmacias_clean.DISTANCIA.argmin(), "titular_nombre"], math.trunc(farmacias_clean.loc[farmacias_clean.DISTANCIA.argmin(), "DISTANCIA"]))
+    
 
 
+
+# FUNCIONES QUE DEVUELVEN COORDENADAS GEOGRAFICAS
 def coordenadas_farmacia_mas_cercana(casa):
     for index, row in farmacias_clean.iterrows(): 
         row['latitud']

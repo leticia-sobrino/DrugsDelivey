@@ -34,22 +34,7 @@ Lo que queremos crear y fomentar mediante el desarrollo de este proyecto es el e
 """
 )
 
-# FRASE
-st.header("¡VAMOS A ELLO! ¡NO PERDAMOS MÁS EL TIEMPO!")
 
-
-
-# GIFT --> FALTA CENTRARLO
-
-#st.markdown("![Alt Text](https://ventolerartistica.files.wordpress.com/2018/05/kjsnckajsn.gif?w=349)", unsafe_allow_html=True)
-
-#st.markdown(“<h1 style=‘text-align: center; color: red;’>Some title</h1>“, unsafe_allow_html=True)
-
-data_url = "https://ventolerartistica.files.wordpress.com/2018/05/kjsnckajsn.gif?w=349"
-st.markdown(
-    f'<img src="data:image/gif;base64,{data_url}" alt="cat gif">',
-    unsafe_allow_html=True,
-)
 
 
 # EXPLICACION DE LOS DATOS USADOS DE MANERA VISUAL CON MAPAS
@@ -113,28 +98,41 @@ folium_static(fm.map_calor_farmacias(map_municipio))
 
 
 
+# FRASE
+st.header("**¡VAMOS A ELLO! ¡NO PERDAMOS MÁS EL TIEMPO!**")
+
+
+# GIFT --> FALTA CENTRARLO
+st.markdown("![loading...](https://ventolerartistica.files.wordpress.com/2018/05/kjsnckajsn.gif?w=349)", unsafe_allow_html=True)
+
+
+
 
 ### PONER EL INPUT PARA QUE METAN LA CALLE
 
-
 st.header("**Datos obligatorios**")
-st.write("No se preocupe, por motivos de seguridad y protección de datos sus datos no se guardarán en la nube")
+st.markdown("_**IMPORTANTE:** No se preocupe por sus datos, por motivos de seguridad y protección de datos no se guardarán en la nube_")
+
+st.subheader("Rellene los campos vacios:")
+st.write('Porfavor siga la misma estructura del ejemplo para evitar errores y que la búsqueda sea más precisa. Ejemplo:')
+st.code('Calle Marbella 83 28034 Madrid')
 
 calle = st.text_input('Inserta tu direccion porfavor: ', '')
 
 if not calle:
-    st.warning('Introduzca su dirección para poder continuar')
+    st.warning('Introduzca su dirección completa para poder continuar')
     st.stop()
 st.success('¡Muchas gracias!')
 
-st.write('Tu direccion es:', calle)
+st.write('Su direccion es:', calle)
+
 
 
 
 
 ### PREGUNTA: ¿HAS IDO A LA CONSULTA PERSONALMENTE O LA HAS RECIBIDO DIGITALMENTE?
 
-st.subheader('**¿Has ido al medico personalmente o has recibido la consulta digitalmente?**')
+st.subheader('**¿Va a ir a su Centro médico personalmente o va a recibir un consulta digital?**')
 
 # Imagenes
 col1, col2 = st.beta_columns(2)
@@ -148,13 +146,15 @@ with col2:
     image = Image.open('input/personalmente.jpg')
     st.image(image, use_column_width=True)
 
+
 #################################################################################################################################
+
 # BOX SELECTION
 option = st.selectbox(
     'Porfavor introduzca su caso:',
-    ('Seleccione','Personalmente', 'Digitalmente'))
+    ('Seleccione una de las siguientes opciones','Personalmente', 'Digitalmente'))
 
-if option == 'Seleccione':
+if option == 'Seleccione una de las siguientes opciones':
     st.stop()
 st.success("¡Muchas gracias!")
 
@@ -163,11 +163,12 @@ st.write('Ha seleccionado:', option)
 
 
 if option == 'Personalmente':
-    st.write('He ido personalmente a mi Centro Médico')
+    st.write('En su caso, va a ir personalmente a su Centro Médico')
     
-    st.write("Estas son las coordenadas de tu casa: ", geo.geocode(calle))
+    # st.write("Estas son las coordenadas de tu casa: ", geo.geocode(calle))
 
     casa = geo.geocode(calle)
+    # st.markdown(casa)
     st.write("El hospital más cercano al que podrías ir es: ", dis.distancia_entre_hospital_casa(casa))
     st.write("La farmacias mas cercana a tu casa es:", dis.distancia_entre_farmacia_casa(casa))
 
@@ -177,23 +178,26 @@ if option == 'Personalmente':
     # MAPA VISUAL
     # variables
     # casa = geo.geocode(calle)
+    # path = "icons/{}".format
+    # icon_hosp = path("Hospital-clinica-sanatorio-icon.png")
     coord_farm_cercana = dis.coordenadas_farmacia_mas_cercana(casa)
     coord_hospital_cercano = dis.coordenadas_hospital_mas_cercano(casa)
     # map_final = folium.Map(location = casa, zoom_start=15, control_scale = True)
 
     #funcion
-    folium_static(fm.distancia_visual(casa))
+    folium_static(fm.distancia_visual_3(casa))
+
 
 
 
 elif option == 'Digitalmente':
-    st.write('He tenido mi consulta médica digitalmente')
+    st.write('En su caso, va a tener la consulta médica digitalmente')
 
-    st.write("Estas son las coordenadas de tu casa: ", geo.geocode(calle))
+    # st.write("Estas son las coordenadas de tu casa: ", geo.geocode(calle))
 
     casa = geo.geocode(calle)
     
-    st.write("Distancia que vas a ahorrarte porque en vez de hacerla tú va a ir un repartidor propio esta farmcaia a llevartela a casa:", dis.distancia_entre_farmacia_casa(casa))
+    st.write("Distancia que vas a ahorrarte porque en vez de hacerla tú va a ir un repartidor propio de esta farmacia a llevartela a casa:", dis.distancia_entre_farmacia_casa(casa))
 
     st.write("Aquí podrás observar visualmente la farmacia mas cercana a tu casa que en un futuro te podrás ahorrar ir ")
     
@@ -202,6 +206,7 @@ elif option == 'Digitalmente':
     # casa = geo.geocode(calle)
     coord_farm_cercana = dis.coordenadas_farmacia_mas_cercana(casa)
     #map_final_2 = folium.Map(location = casa, zoom_start=15, control_scale = True)
+    
     #function
     folium_static(fm.distancia_visual(casa))
 
@@ -219,4 +224,6 @@ st.write(
     ¡Pasalo bien!
     '''
 )
-folium_static(fm.include_meas_control(map_personalizado))
+
+map_juego = fm.mapa_centros_medicos(map_personalizado)
+folium_static(fm.include_meas_control(map_juego))

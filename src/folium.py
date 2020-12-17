@@ -9,6 +9,7 @@ from folium.features import CustomIcon
 import numpy as np
 import pandas as pd
 import src.distancia as dis
+import src.geocode as geo
 
 # IMPORTANDO NUESTROS DATOS LIMPIOS
 centros_medicos_clean = pd.read_csv("data/centros_medicos_clean.csv")
@@ -182,42 +183,45 @@ def map_calor_farmacias(mapa):
 #########################################################################################################################################
 
 #map_final = Map(location = casa, zoom_start=15, control_scale = True)
-def distancia_visual(casa):
+
+def distancia_visual_3(calle):
+    casa = geo.geocode(calle)
     coord_farm_cercana = dis.coordenadas_farmacia_mas_cercana(casa)
     coord_hospital_cercano = dis.coordenadas_hospital_mas_cercano(casa)
     map_final = Map(location = casa, zoom_start=15, control_scale = True)
+
     #HOSPiTAL
     icon = CustomIcon( 
-            icon_hosp, 
-            icon_size=(40, 50))
-    
+                icon_hosp, 
+                icon_size=(40, 50))
     loc = coord_hospital_cercano
+
     hospital_cercano = Marker(location = loc, icon = icon, tooltip = "El hospital mas cercano")
     hospital_cercano.add_to(map_final)
 
 
     #FARMACIA
     icon = CustomIcon(
-            icon_farm,
-            icon_size=(40, 50))
+                icon_farm,
+                icon_size=(40, 50))
 
     loc = coord_farm_cercana
     farmacia_cercana = Marker(location = loc,icon = icon, tooltip = "La farmacia mas cercana")
     farmacia_cercana.add_to(map_final)
 
+
     #HOME
     icon = Icon(color = "red",
-                prefix = "fa",
-                icon = "home",
-                icon_color = "white",
-                icon_size = (40, 50))
+                        prefix = "fa",
+                        icon = "home",
+                        icon_color = "white",
+                        icon_size = (40, 50))
     loc = casa
     mi_casa = Marker(location = loc, icon = icon, tooltip = "Tu casa")
     mi_casa.add_to(map_final)
 
 
     return map_final
-
 
 
 
@@ -250,7 +254,8 @@ def distancia_visual(casa):
 
 
 # CALCULAR DISTANCIAS INTERACTIVAMENTE
-def include_meas_control(mymap):
+def include_meas_control(map_juego):
+    
     '''
     adds a measure control to a Folium map
     Args:
@@ -262,6 +267,6 @@ def include_meas_control(mymap):
                              completed_color = 'red',
                              primary_length_unit= 'kilometers')
 
-    mymap.add_child(measure_control)
+    map_juego.add_child(measure_control)
     
-    return map_personalizado
+    return map_juego
