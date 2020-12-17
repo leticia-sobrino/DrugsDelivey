@@ -114,17 +114,16 @@ folium_static(fm.map_calor_farmacias(map_municipio))
 
 
 
-
-
 ### PONER EL INPUT PARA QUE METAN LA CALLE
 
-st.subheader("**Datos obligatorios**")
+
+st.header("**Datos obligatorios**")
 st.write("No se preocupe, por motivos de seguridad y protección de datos sus datos no se guardarán en la nube")
 
 calle = st.text_input('Inserta tu direccion porfavor: ', '')
 
 if not calle:
-    st.warning('Introduzca su dirección para pode continuar')
+    st.warning('Introduzca su dirección para poder continuar')
     st.stop()
 st.success('¡Muchas gracias!')
 
@@ -172,21 +171,52 @@ if option == 'Personalmente':
     st.write("El hospital más cercano al que podrías ir es: ", dis.distancia_entre_hospital_casa(casa))
     st.write("La farmacias mas cercana a tu casa es:", dis.distancia_entre_farmacia_casa(casa))
 
+    
+    st.write("Aquí podrás observar visualmente el hospital más cercano y la farmacias mas cercana que en un futuro te podrás ahorrar ir")
+    
+    # MAPA VISUAL
+    # variables
+    # casa = geo.geocode(calle)
+    coord_farm_cercana = dis.coordenadas_farmacia_mas_cercana(casa)
+    coord_hospital_cercano = dis.coordenadas_hospital_mas_cercano(casa)
+    # map_final = folium.Map(location = casa, zoom_start=15, control_scale = True)
+
+    #funcion
+    folium_static(fm.distancia_visual(casa))
+
+
+
 elif option == 'Digitalmente':
     st.write('He tenido mi consulta médica digitalmente')
 
     st.write("Estas son las coordenadas de tu casa: ", geo.geocode(calle))
 
     casa = geo.geocode(calle)
+    
     st.write("Distancia que vas a ahorrarte porque en vez de hacerla tú va a ir un repartidor propio esta farmcaia a llevartela a casa:", dis.distancia_entre_farmacia_casa(casa))
 
+    st.write("Aquí podrás observar visualmente la farmacia mas cercana a tu casa que en un futuro te podrás ahorrar ir ")
+    
+    # MAPA VISUAL
+    # variables
+    # casa = geo.geocode(calle)
+    coord_farm_cercana = dis.coordenadas_farmacia_mas_cercana(casa)
+    #map_final_2 = folium.Map(location = casa, zoom_start=15, control_scale = True)
+    #function
+    folium_static(fm.distancia_visual(casa))
 
-  
 
-##### SI ES PERSONALMENTE
-##### CALCULAR DISTANCIA ENTRE HOSPITAL Y CASA Y CASA Y FARMACIA
-
-
-##### SI ES DIGITALMENTE
-##### CALCULAR LA DISTANCIA ENTRE LA CASA Y LA FARMACIA MAS CERCANA
-##### METER MAPA DE LA RUTA QUE VA HACER EL REPARTIDOR
+st.header("**Juego interactivo**")
+st.write(
+    '''
+    Aquí os dejo un mapa interactivo con los markers de todos los centros medicos de Madrid para que calculeir vosotros mismos la distacia entre
+    los dos puntos que querais.
+    Solamente teneis que hacer click en el cuadrito que aparece en el lado derecho del mapa y luego pinchar en "create a new measurament". Ahora,
+    desliza el raton por encima del mapa y verás un punto rojo en el cursor, haciendo click en cualquier parte del mapa elegirás los dos puntos de 
+    los cuales quieras saber la distancia entre ellos. 
+    Te aparecerá un recuadro blanco con las coordenales geofráficas de los dos sitios que has marcado y la distancia que hay entre ellos dos medias en km.
+    Si quieres guardar la medida solamente tienes que darle a "finish measurement" y si la quieres borrar tendrás que pinchas en "cancel".
+    ¡Pasalo bien!
+    '''
+)
+folium_static(fm.include_meas_control(map_personalizado))

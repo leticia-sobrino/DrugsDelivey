@@ -66,3 +66,27 @@ def distancia_entre_farmacia_casa(casa):
     farmacias_clean['DISTANCIA'] = farmacias_clean.apply(lambda row: haversine(casa, (row['latitud'], row['longitud'])), axis=1)
     
     return (farmacias_clean.loc[farmacias_clean.DISTANCIA.argmin(), "titular_nombre"], farmacias_clean.loc[farmacias_clean.DISTANCIA.argmin(), "DISTANCIA"])
+
+
+def coordenadas_farmacia_mas_cercana(casa):
+    for index, row in farmacias_clean.iterrows(): 
+        row['latitud']
+        row['longitud']
+     
+    farmacias_clean['DISTANCIA'] = 0
+    farmacias_clean['DISTANCIA'] = farmacias_clean.apply(lambda row: haversine(casa, (row['latitud'], row['longitud'])), axis=1)
+    
+    return (farmacias_clean.loc[farmacias_clean.DISTANCIA.argmin(), "latitud"], farmacias_clean.loc[farmacias_clean.DISTANCIA.argmin(), "longitud"])
+
+
+def coordenadas_hospital_mas_cercano(casa):  
+    for index, row in centros_medicos_clean.iterrows(): 
+        row['LATITUD']
+        row['LONGITUD']
+    
+    centros_medicos_clean['DISTANCIA'] = 0 
+    
+    centros_medicos_clean['DISTANCIA'] = centros_medicos_clean.apply(lambda row: haversine((casa), (row['LATITUD'], row['LONGITUD'])), axis=1)
+    
+    return (centros_medicos_clean.loc[centros_medicos_clean.DISTANCIA.argmin(), "LATITUD"], (centros_medicos_clean.loc[centros_medicos_clean.DISTANCIA.argmin(), "LONGITUD"]))
+    
