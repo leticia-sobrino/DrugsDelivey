@@ -1,6 +1,6 @@
-# Drugs Delivery
+# Drugs Delivery :bike:
 
-### INDICE
+### ÍNDICE
 #### 1. INTRUDUCCIÓN :ghost:
 #### 2. PROYECTO :rocket:
 #### 3. ESTURCTURA :skull:
@@ -22,7 +22,7 @@ El fin por ello, es devolver mediantes un análisis de datos una serie de result
 
 ### 3. ESTRUCTURA :skull:
 El proyecto presenta la siguiente estructura: 
-1. Una carpeta de data que se cuelta oculta debido a su peso pero en donde se encuentran las dos bases de datos utilizadas para este proyecto y cuya documentación se encontrará en el punto cinco del README.md.
+1. Una carpeta de data que se encuentra oculta debido a su peso pero, en donde se encuentran las dos bases de datos utilizadas para este proyecto y cuya documentación se encontrará en el punto cinco del README.md.
 2. La carpeta de notebooks: 
    - En donde podrás encontrar los notebooks con los que he podido ir trabajando a la hora de hacer el ETLS de las bases de datos proporcionadas por la Comunidad de Madrid, utilizando la herramientas de Pandas y Numpy. 
    - Los notebooks respectivos para la visualización de datos en mapas mediante la utlización de la libreria Folium.
@@ -30,7 +30,7 @@ El proyecto presenta la siguiente estructura:
    - Y, por último un notebook en el que nos encontraremos las requests necesarias a la API de Geocode que hemos tenido que utilizar para inyectar más datos a nuestro proyecto y completarlo más.
 3. Una carpeta de output en donde encontraras los mapas finales
 4. La carpeta de input en dónde se guardan las imagenes utilizadas para diseñar la API que he creado para devolver el produco final de este proyecto.
-5. Una carpeta de icons en dñonde encontraras iconos en el formato png para insertar a mis mapas como markers y personalizar mi producto final.
+5. Una carpeta de icons en dónde encontrarás iconos en el formato png para insertar a mis mapas como markers y personalizar mi producto final.
 6. Y, por último y lo más importante, la base de todo este proyecto y el cerebro del producto final: la carpeta de src con todas las funciones para aplicar todas las herramientas de análisis, filtrado y devolución de datos con valor y, el archivo main.py que se encarga de dar vida al proyecto y devolver toda la información  con tan solo ejecutar el siguiente comando en su local:
 
         streamlit run main.py
@@ -38,15 +38,15 @@ El proyecto presenta la siguiente estructura:
 
 ### FUNCIONAMINETO :boom:
 Cómo he dicho anteriormente el main.py es el archivo que hace que cobre vida este proyecto.
-Este proyecto devuelve una API, contruida por la herramienta Streamlit, cuyo uso solamente esta limitado desde el local. 
+Este proyecto devuelve una API, contruida por la herramienta Streamlit, cuyo uso solamente esta limitado desde local. 
 Si quiere ver su funcionamineto solamente debería de seguir los siguientes pasos:
-1. Clonar este repositorio en su repo
-2. Accecer a la dirección de este repositorio en su terminal (donde lo haya guardo)
+1. Clonar este repositorio en su local
+2. Accecer a la dirección de este repositorio en su terminal (donde lo haya clonado)
 3. Y escribir el siguinete comando para que la API empiece a correr:
    
         streamlit run main.py
 
-4. ahora se le habrá abierto una pestaña en su navegador con la API de este proyecto, lea lo que pone, juegue con los mapas interactivos que se le proporcionan y siga los pasos para ver la mínima distancia que usted en un futuro NO va a tener que realizar porque lo va a hacer un repartidor por tí, lo que llamamos Delivery.
+4. Ahora se le habrá abierto una pestaña en su navegador con la API de este proyecto, lea lo que pone, juegue con los mapas interactivos que se le proporcionan y siga los pasos para ver la mínima distancia que usted en un futuro NO va a tener que realizar porque lo va a hacer un repartidor por tí, lo que llamamos Delivery.
 
 
 ### DOCUMENTACIÓN :white_check_mark:
