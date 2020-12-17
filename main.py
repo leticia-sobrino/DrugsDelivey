@@ -23,6 +23,7 @@ st.markdown("<h1 style='text-align: center; color: black;'>Drugs delivery?</h1>"
 # FOTO DE PORTADA Y TEXTO INTRODUCTORIO
 image = Image.open('input/deliverybike.png')
 st.image (image,use_column_width=True)
+st.header("Proyecto:")
 st.write(
 """
 Este proyecto te va a ofrecer una nueva idea de negocio respaladada por datos.
@@ -35,7 +36,7 @@ Lo que queremos crear y fomentar mediante el desarrollo de este proyecto es el e
 )
 
 
-
+st.header("Datos:")
 
 # EXPLICACION DE LOS DATOS USADOS DE MANERA VISUAL CON MAPAS
 st.write(
