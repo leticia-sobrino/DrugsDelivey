@@ -2,7 +2,10 @@
 data
 /.ipynb_checkpoints
 notebooks/.ipynb_checkpoints/
-
-
+.vscode
+src/__pycache__/
+notebooks/funciones_folium.ipynb
+notebooks/Pruebas_ETLS.ipynb
+notebooks/Pruebas_mapas.ipynb
 
 
