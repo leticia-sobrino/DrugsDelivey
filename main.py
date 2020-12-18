@@ -228,3 +228,11 @@ st.write(
 
 map_juego = fm.mapa_centros_medicos(map_personalizado)
 folium_static(fm.include_meas_control(map_juego))
+
+
+st.markdown("<h1 style='text-align: center; color: black;'>¿Te imaginas no tener ni que recorrer la mínima distancia para comprar un medicamento?</h1>", unsafe_allow_html=True)
+
+image = Image.open('input/reloj.png')
+st.image (image,use_column_width=False)
+
+st.markdown("<h1 style='text-align: center; color: black;'>¡No escapemos esta oportunidad de negocio!</h1>", unsafe_allow_html=True)
